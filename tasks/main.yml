@@ -1,35 +1,37 @@
 ---
 # tasks file for php
 
-- name: Update OS
-  include_tasks: update_os.yml
-  
-- name: Install remi repo.
-  yum:
-    name: "{{ remi_repo_rpm }}"
-    state: present
+- when: ansible_os_family == 'RedHat'
+  block:
+    - name: Update OS
+      include_tasks: update_os.yml
+      
+    - name: Install remi repo.
+      yum:
+        name: "{{ remi_repo_rpm }}"
+        state: present
 
-- name: Import remi GPG key.
-  rpm_key:
-    key: "{{ remi_repo_gpg }}"
-    state: present
+    - name: Import remi GPG key.
+      rpm_key:
+        key: "{{ remi_repo_gpg }}"
+        state: present
 
-- name: Enable {{ php_version }} repo
-  ini_file:
-    dest: '/etc/yum.repos.d/remi-{{ php_version }}.repo'
-    section: remi-{{ php_version }}
-    option: enabled
-    value: 1
- 
-- name: Install {{ php_version }}
-  yum:
-    enablerepo: "remi,remi-{{ php_version }}"
-    name: php
-    state: present
-    update_cache: yes
+    - name: Enable {{ php_version }} repo
+      ini_file:
+        dest: '/etc/yum.repos.d/remi-{{ php_version }}.repo'
+        section: remi-{{ php_version }}
+        option: enabled
+        value: 1
+    
+    - name: Install {{ php_version }}
+      yum:
+        enablerepo: "remi,remi-{{ php_version }}"
+        name: php
+        state: present
+        update_cache: yes
 
-- name: Insall {{ php_version }} pkg
-  yum:
-    name: "{{ item }}"
-  with_items: "{{ php_packages }}"
-  when: php_packages is defined
+    - name: Insall {{ php_version }} pkg
+      yum:
+        name: "{{ item }}"
+      with_items: "{{ php_packages }}"
+      when: php_packages is defined
