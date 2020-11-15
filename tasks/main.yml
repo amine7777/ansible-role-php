@@ -22,7 +22,13 @@
         section: remi-{{ php_version }}
         option: enabled
         value: 1
-    
+        mode: '0644'
+
+    - name: Install {{ php_version }}
+      yum:
+        name: '*'
+        state: present
+
     - name: Install {{ php_version }}
       yum:
         enablerepo: "remi,remi-{{ php_version }}"
