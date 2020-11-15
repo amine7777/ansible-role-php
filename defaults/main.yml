@@ -1,4 +1,6 @@
 ---
 # defaults file for php
+remi_repo_rpm: http://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm
+remi_repo_gpg: http://rpms.remirepo.net/RPM-GPG-KEY-remi
 php_version: php73
 php_packages: []
