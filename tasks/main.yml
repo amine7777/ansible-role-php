@@ -8,15 +8,11 @@
   yum:
     name: "{{ remi_repo_rpm }}"
     state: present
-  tags:
-    - php
 
 - name: Import remi GPG key.
   rpm_key:
     key: "{{ remi_repo_gpg }}"
     state: present
-  tags:
-    - php
 
 - name: Enable {{ php_version }} repo
   ini_file:
@@ -29,13 +25,11 @@
   yum:
     enablerepo: "remi,remi-{{ php_version }}"
     name: php
-    state: latest
+    state: present
     update_cache: yes
-
 
 - name: Insall {{ php_version }} pkg
   yum:
     name: "{{ item }}"
-  with_items:
-    - "{{ php_packages }}"
+  with_items: "{{ php_packages }}"
   when: php_packages is defined
