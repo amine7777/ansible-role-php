@@ -5,7 +5,7 @@ php_minor_version: 4
 php_packages: []
 
 # DEBIAN
-php_apt_rep_ubuntu: ppa:ondrej/php
+php_apt_repo_ubuntu: ppa:ondrej/php
 php_apt_repo_debian: "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main |  tee /etc/apt/sources.list.d/php{{ php_major_version }}.{{ php_minor_version }}.list"
 php_gpg_link: https://packages.sury.org/php/apt.gpg
 
