@@ -73,7 +73,7 @@
       yum:
         enablerepo: "remi,remi-{{ yum_remi_module }}"
         name: php
-        state: presnt
+        state: present
         update_cache: yes
       changed_when: false
       when: not ansible_distribution_major_version == "8" 
