@@ -14,29 +14,34 @@
           - ca-certificates 
           - lsb-release
         state: present
+      changed_when: false
     
     - name: Add php APT repository for Debian
       get_url:
         url: "{{ php_gpg_link }}"
         dest: /etc/apt/trusted.gpg.d/php.gpg
+      changed_when: false
       when: not ansible_distribution == "Ubuntu"
 
     - name: Add php APT repository for Debian
       apt_repository:
         repo: "{{ php_apt_repo_debian }}"
         state: present
+      changed_when: false
       when: not ansible_distribution == "Ubuntu"
 
     - name: Add php APT repository for Ubuntu
       apt_repository:
         repo: "{{ php_apt_repo_ubuntu }}"
         state: present
+      changed_when: false
       when: ansible_distribution == "Ubuntu"
     
     - name: Install php for Debian dists
       apt: 
         name: php{{ php_major_version }}.{{ php_minor_version }}
         state: present
+      changed_when: false
   when: ansible_os_family == "Debian"
 
 - name: Install PHP with Remi for Centos dists
@@ -45,12 +50,14 @@
       rpm_key:
         key: "{{ remi_website }}/{{ item }}"
         state: present
+      changed_when: false
       with_items: "{{ remi_repo_gpg }}"
     
     - name: Install remi repo for Centos 
       yum:
         name: "{{ remi_repo_rpm_centos }}"
         state: present
+      changed_when: false
       when: not ansible_distribution_major_version == "8" 
     
     - name: Enable "{{ yum_remi_module }}" repo for Centos
@@ -59,6 +66,7 @@
         section: remi-{{ yum_remi_module }}
         option: enabled
         value: 1
+      changed_when: false
       when: not ansible_distribution_major_version == "8" 
        
     - name: Install "{{ yum_remi_module }}" for Centos
@@ -67,28 +75,32 @@
         name: php
         state: latest
         update_cache: yes
+      changed_when: false
       when: not ansible_distribution_major_version == "8" 
     
     - name: Install remi repo for Centos 8
       dnf:
         name: "{{ remi_repo_rpm_centos }}"
         state: present
+      changed_when: false
       when: ansible_distribution_major_version == "8" 
 
     - name: Install PHP "{{ dnf_remi_module }}" for Centos8
       dnf:
         name: "{{ dnf_remi_module }}"
         state: present
+      changed_when: false
       when: ansible_distribution_major_version == "8" 
 
     - name: Install PHP packages for Centos
       yum:
         name: "{{ item }}"
+        state: present
+      changed_when: false
       when: php_packages is defined 
       with_items: "{{ php_packages }}"
   when: ansible_distribution == "CentOS"
         
-
 - name: Install PHP with Remi for Fedora dists
   block:
     - name: Import remi GPG key.
@@ -96,20 +108,25 @@
         key: "{{ remi_website }}/{{ item }}"
         state: present
       with_items: "{{ remi_repo_gpg }}"
+      changed_when: false
     
     - name: Install remi repo for Fedora
       dnf:
         name: "{{ remi_repo_rpm_fedora }}"
         state: present
+      changed_when: false
     
     - name: Install PHP "{{ dnf_remi_module }}" for Centos8
       dnf:
         name: "{{ dnf_remi_module }}"
         state: present 
+      changed_when: false
     
     - name: Install PHP packages for Fedora
       dnf:
         name: "{{ item }}"
+        state: present
+      changed_when: false
       when: php_packages is defined 
       with_items: "{{ php_packages }}"
   when: ansible_distribution == "Fedora"
