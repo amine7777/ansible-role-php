@@ -4,6 +4,41 @@
 - name: Update OS
   include_tasks: update_os.yml
 
+- name: Install PHP for Debian dists
+  block:
+    - name: Install dependencies
+      apt:
+        name: 
+          - dirmngr
+          - apt-transport-https 
+          - ca-certificates 
+          - lsb-release
+        state: present
+    
+    - name: Add php APT repository for Debian
+      get_url:
+        url: "{{ php_gpg_link }}"
+        dest: /etc/apt/trusted.gpg.d/php.gpg
+      when: not ansible_distribution == "Ubuntu"
+
+    - name: Add php APT repository for Debian
+      apt_repository:
+        repo: "{{ php_apt_repo_debian }}"
+        state: present
+      when: not ansible_distribution == "Ubuntu"
+
+    - name: Add php APT repository for Ubuntu
+      apt_repository:
+        repo: "{{ php_apt_repo_ubuntu }}"
+        state: present
+      when: ansible_distribution == "Ubuntu"
+    
+    - name: Install php for Debian dists
+      apt: 
+        name: php{{ php_major_version }}.{{ php_minor_version }}
+        state: present
+  when: ansible_os_family == "Debian"
+
 - name: Install PHP with Remi for Centos dists
   block:
     - name: Import remi GPG key.
@@ -78,5 +113,3 @@
       when: php_packages is defined 
       with_items: "{{ php_packages }}"
   when: ansible_distribution == "Fedora"
-
- 

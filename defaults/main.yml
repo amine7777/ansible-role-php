@@ -1,8 +1,22 @@
 ---
 # defaults file for php
-remi_website: http://rpms.remirepo.net
+php_major_version: 7
+php_minor_version: 4
+php_packages: []
+
+# DEBIAN
+php_apt_rep_ubuntu: ppa:ondrej/php
+php_apt_repo_debian: "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main |  tee /etc/apt/sources.list.d/php{{ php_major_version }}.{{ php_minor_version }}.list"
+php_gpg_link: https://packages.sury.org/php/apt.gpg
+
+# CENTOS
 remi_repo_rpm_centos: "{{ remi_website }}/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
+yum_remi_module: php{{ php_major_version }}{{ php_minor_version }} 
+
+#FEDORA
 remi_repo_rpm_fedora: "{{ remi_website }}/fedora/remi-release-{{ ansible_distribution_major_version }}.rpm"
+dnf_remi_module: "@php:remi-{{ php_major_version }}.{{ php_minor_version }}"
+remi_website: http://rpms.remirepo.net
 
 remi_repo_gpg: 
   - RPM-GPG-KEY-remi
@@ -11,11 +25,6 @@ remi_repo_gpg:
   - RPM-GPG-KEY-remi2018
   - RPM-GPG-KEY-remi2017
 
-php_major_version: 7
-php_minor_version: 4
-yum_remi_module: php{{ php_major_version }}{{ php_minor_version }} 
-dnf_remi_module: "@php:remi-{{ php_major_version }}.{{ php_minor_version }}"
 
-php_packages: []
 
 
