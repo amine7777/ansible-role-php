@@ -25,7 +25,7 @@ jobs:
       - name: Lint code.
         run: |
           yamllint .
-          ansible-lint
+          ansible-lint -x '201'
                
   test:
     name: Molecule
