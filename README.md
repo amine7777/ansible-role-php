@@ -6,9 +6,11 @@ This role helps you to install php on your linux machine.
 
 |Travis|GitHubActions|Quality|Downloads|Version|
 |------|-------------|-------|---------|-------|
-|[![travis](https://travis-ci.com/amine7777/ansible-role-php.svg?branch=master)](https://travis-ci.com/amine7777/ansible-role-php)|[![github](https://github.com/amine7777/ansible-role-php/workflows/CI/badge.svg)](https://github.com/amine7777/ansible-role-php/actions)|[![quality](https://img.shields.io/ansible/quality/50498)](https://galaxy.ansible.com/amine7777/php)|[![downloads](https://img.shields.io/ansible/role/d/50498)](https://galaxy.ansible.com/amine7777/php)|[![Version](https://img.shields.io/github/release/amine7777/ansible-role-php.svg)](https://github.com/amine7777/ansible-role-php/releases/)|
+|[![travis](https://travis-ci.com/amine7777/ansible-role-php.svg?branch=master)](https://travis-ci.com/amine7777/ansible-role-php)|[![github](https://github.com/amine7777/ansible-role-php/workflows/CI/badge.svg)](https://github.com/amine7777/ansible-role-php/actions)|[![quality](https://img.shields.io/ansible/quality/51931)](https://galaxy.ansible.com/amine7777/php)|[![downloads](https://img.shields.io/ansible/role/d/51931)](https://galaxy.ansible.com/amine7777/php)|[![Version](https://img.shields.io/github/release/amine7777/ansible-role-php.svg)](https://github.com/amine7777/ansible-role-php/releases/)|
 
-![](php.png)
+
+<img src="php.png" alt="ansible hosts" width="500"/>
+
 
 Requirements
 ------------
