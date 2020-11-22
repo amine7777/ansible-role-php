@@ -8,7 +8,7 @@ This role helps you to install php on your linux machine.
 |------|-------------|-------|---------|-------|
 |[![travis](https://travis-ci.com/amine7777/ansible-role-php.svg?branch=master)](https://travis-ci.com/amine7777/ansible-role-php)|[![github](https://github.com/amine7777/ansible-role-php/workflows/CI/badge.svg)](https://github.com/amine7777/ansible-role-php/actions)|[![quality](https://img.shields.io/ansible/quality/50498)](https://galaxy.ansible.com/amine7777/php)|[![downloads](https://img.shields.io/ansible/role/d/50498)](https://galaxy.ansible.com/amine7777/php)|[![Version](https://img.shields.io/github/release/amine7777/ansible-role-php.svg)](https://github.com/amine7777/ansible-role-php/releases/)|
 
-![](php.jpg)
+![](php.png)
 
 Requirements
 ------------
@@ -19,17 +19,25 @@ Role Variables
 --------------
 These variables helps to manage php installation.
 
-You can specify your php version in this variable.
+You can specify your php version in these 2 variables. For example if you would like to install php73, the values will be the following:
 ```yaml
-php_version: php73
+php_major_version: 7
+php_minor_version: 3
 ```
-This is the url where php will be downloaded.
+Php is installed using [Remi's RPM repository](https://blog.remirepo.net/) for Centos and Fedora. 
+
+If you would like to install more php packages you need to create a list using php packages lis.
+
+For Centos and Fedora: php73-<package_name>
 ```yaml
-php_download_url: 'https://releases.hashicorp.com/php/{{ php_version }}/php_{{ php_version }}_linux_{{ php_arch }}.zip'
+php_packages:
+  - php73-mysql
 ```
-This is the path where packer binary will be stored.
+
+For Ubuntu and Debian: php7.3-<package_name>
 ```yaml
-php_directory_path: /usr/local/bin
+php_packages:
+  - php7.3-mysql
 ```
 
 Example Playbook
@@ -37,6 +45,9 @@ Example Playbook
 
 ```yaml
 - hosts: all
+  vars:
+    php_major_version: 7
+    php_minor_version: 4
   roles:
      - amine7777.php
 ```
